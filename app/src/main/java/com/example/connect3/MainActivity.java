@@ -2,20 +2,17 @@ package com.example.connect3;
 
 import android.os.Bundle;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-
-
 
     private String[][] board = new String[3][3];
     private String currentMark = "x";
@@ -26,12 +23,18 @@ public class MainActivity extends AppCompatActivity {
         if (current.getDrawable() == null) {
             if (currentMark.equals("x")){
                 current.setImageResource(R.drawable.x);
+                current.setScaleX(0.5f);
+                current.setScaleY(0.5f);
+                current.animate().scaleX(1.0f).scaleY(1.0f).setDuration(750);
                 getXY((String)current.getTag());
                 checkWinCondition();
                 currentMark = "o";
                 turns++;
             } else {
                 current.setImageResource(R.drawable.o);
+                current.setScaleX(0.5f);
+                current.setScaleY(0.5f);
+                current.animate().scaleX(1.0f).scaleY(1.0f).setDuration(750);
                 getXY((String)current.getTag());
                 checkWinCondition();
                 currentMark = "x";
@@ -48,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
 }
 
     public void checkWinCondition(){
-        System.out.println(turns);
         if (turns == 8){
             tie();
             disableBoard();
@@ -96,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
         ImageView nine = findViewById(R.id.imageView9);
         ImageView[] imageViews = new ImageView[] {one,two,three,four,five,six,seven,eight,nine};
 
+
         for (ImageView image: imageViews) {
             image.setImageResource(0);
             image.setEnabled(true);
@@ -117,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             text.setText(R.string.oWins);
         }
+
         button.setVisibility(View.VISIBLE);
 
         button.setOnClickListener(new View.OnClickListener() {
